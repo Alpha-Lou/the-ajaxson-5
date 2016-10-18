@@ -23,58 +23,50 @@ function fetchAndDisplayGif(event) {
     console.log("searchQuery is " + searchQuery);
 
 
-
-    // make an ajax request for a random GIF
     var gif_JSON_url = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=Jackson+5+" + searchQuery;
-    var gif_WEB_url = JSON.stringify(gif_JSON_url.image_url);
     console.log("gif_JSON_url is " + gif_JSON_url);
-    //console.log("gif_WEB_url is " + gif_WEB_url);
 
+//ajax request object sent to the server as one communication
 
     $.ajax({
 
-        url: gif_WEB_url, /* TODO where should this request be sent?
+        url: gif_JSON_url, /* TODO where should this request be sent?
              gif_JSON_url leads to the json data list of the gif and data.image_original_url
              is the url we want and stringify will take out the backslashes*/
 
-        success: function(response) {
+        success: function(data) {
             // if the response comes back successfully, the code in here will execute.
 
             // jQuery passes us the `response` variable, a regular javascript object created from the JSON the server gave us
 
 
             console.log("we received a response!");
-            console.log(response);
+            console.log(data);
 
             // TODO
             // 1. set the source attribute of our image to the image_url of the GIF
             // 2. hide the feedback message and display the image
+            var working_url = data.data.image_url;
 
-            $("#gif").replaceWith("<img id='gif' src='url' hidden='true'/>");
+            $("#gif").attr('src', working_url);
+            setGifLoadedStatus(true);
         },
-            //console.log("imgSrcAttr" + imgSrcAttr);
+
 
         error: function() {
+            console.log("error!");
             // if something went wrong, the code in here will execute instead of the success function
 
-            // give the user an error message
-            $("#feedback").text("Sorry, could not load GIF. Try again!");
-            setGifLoadedStatus(false);
+                // give the user an error message
+                $("#feedback").text("Sorry, could not load GIF. Try again!");
+                setGifLoadedStatus(false);
+
         }
     });
 
     // TODO
     // give the user a "Loading..." message while they wait
-    var myVar;
-
-    function myFunction() {
-        myVar = setTimeout(showPage, 3000)};
-
-
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("myDiv").style.display = "block";
-}
+    setGifLoadedStatus(false);
 
 
 }
