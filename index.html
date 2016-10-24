@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <title>The AJAXson 5</title>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="request-gif.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
 </head>
-<body>
+<body style="background-color: yellow; text-align: center;>
+    <div class="container-fluid">
     <h1>The AJAXson 5</h1>
 
     <form id="form-gif-request">
-        <label>What kind of Jackson 5 related gif do you want?</label>
+        <label for="tag">What kind of Jackson 5 related gif do you want?</label>
         <input name="tag" id="tag" type="text">
         <br>
         <p>Prove you are not a robot by answering this riddle:</p>
         <br>
-        <input name="testQ" id="testQ" type="text"><p>Jacksons are better than 1.</p>
+        <input name="testQ" id="testQ" type="text">
+        <label for="testQ">Jacksons are better than 1</label>
         <br>
         <p id="NoGifs" style="color: red"></p>
         <br>
-        <input type="submit" value="Get my Gif!">
+        <button type="submit" class="btn btn-default btn-lg">Get my Gif!</button>
     </form>
-
+    <br>
+    <br>
     <img id="gif" src="" hidden="true"/>
     <p id="feedback" hidden="true">Loading...</p>
-
+    </div>
 </body>
+
 </html>
