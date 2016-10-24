@@ -22,11 +22,18 @@ function fetchAndDisplayGif(event) {
     var searchQuery = $("#tag").val(); // gets user input id tag
     console.log("searchQuery is " + searchQuery);
 
-
+    // api request json url as a variable plus the search query input data
     var gif_JSON_url = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=Jackson+5+" + searchQuery;
     console.log("gif_JSON_url is " + gif_JSON_url);
 
-//ajax request object sent to the server as one communication
+    // gets user input for robo test and set as a variable
+    var robotest = $("#testQ").val();
+
+    //execute ajax function if not a robot:
+
+    if (robotest == "5") {
+
+    //ajax request object sent to the server as one communication
 
     $.ajax({
 
@@ -48,28 +55,31 @@ function fetchAndDisplayGif(event) {
             // 2. hide the feedback message and display the image
             var working_url = data.data.image_url;
 
+
             $("#gif").attr('src', working_url);
             setGifLoadedStatus(true);
-        },
-
+        }, //ends success function
 
         error: function() {
             console.log("error!");
-            // if something went wrong, the code in here will execute instead of the success function
-
-                // give the user an error message
+            /* if something went wrong,
+             the code in here will execute instead of the success function
+             give the user an error message */
                 $("#feedback").text("Sorry, could not load GIF. Try again!");
                 setGifLoadedStatus(false);
 
-        }
-    });
+        } //ends error function
 
-    // TODO
-    // give the user a "Loading..." message while they wait
-    setGifLoadedStatus(false);
+    }); //ends ajax
+
+    } // ends IF statement TRUE actions
 
 
-}
+    else {
+        $("#NoGifs").text("Riddle answer incorrect. No gifs for you."); //add no gifs for you line
+    }; // ends ELSE statement FALSE actions
+
+} // ends fetchAndDisplayGif function
 
 
 /**
@@ -80,4 +90,6 @@ function fetchAndDisplayGif(event) {
 function setGifLoadedStatus(isCurrentlyLoaded) {
     $("#gif").attr("hidden", !isCurrentlyLoaded);
     $("#feedback").attr("hidden", isCurrentlyLoaded);
+    //$("#testQ").attr("hidden"), isCurrentlyLoaded);
+    //can I just add lines to this?
 }
